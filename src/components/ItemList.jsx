@@ -1,7 +1,7 @@
 import EmptyView from './EmptyView';
 import Select from 'react-select';
-import { use, useMemo, useState } from 'react';
-import { useItemsContext } from '../lib/hooks';
+import { useMemo, useState } from 'react';
+import { useItemStore } from '../stores/itemsStore';
 
 const options = [
   { value: 'default', label: 'default' },
@@ -11,7 +11,11 @@ const options = [
 
 export default function ItemList() {
   const [sortBy, setSortBy] = useState('default');
-  const { items, handleDeleteItem, handleToggleItem } = useItemsContext();
+  const { items, deleteItem, toggleItem } = useItemStore((state) => ({
+    items: state.items,
+    deleteItem: state.deleteItem,
+    toggleItem: state.toggleItem,
+  }));
 
   // sort will sort an array in place and its bad practice to mutate the original array
   // so we will create a new array with the spread operator and sort it
@@ -54,8 +58,8 @@ export default function ItemList() {
           id={item.id}
           completed={item.completed}
           text={item.text}
-          onDeleteItem={handleDeleteItem}
-          onToggleItem={handleToggleItem}
+          onDeleteItem={deleteItem}
+          onToggleItem={toggleItem}
         />
       ))}
     </ul>
