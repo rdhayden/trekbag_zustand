@@ -16,12 +16,12 @@ export const useItemStore = create(
         // the set function takes a callback with the current state
         // so you can call it as follows set((state) => {...}) if you want
         // to directly reference state, but you can omit the state argument
-        // We want to update the state, in this case making items and empty array
+        // We want to update the state, in this case making items an empty array
         // but we also need to include all the actions (the functions such as this one)
         // by default set will merge any object returned by the function
         // passed to it, with the rest of the state, so just need to return
         // an object with an items member which will override items and the rest
-        // of the state will get merged before set returns a new object
+        // of the state will get merged before updating the state in the store
         set(() => ({ items: [] }));
       },
       addItem: (text) => {
